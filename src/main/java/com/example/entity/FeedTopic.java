@@ -1,26 +1,22 @@
 package com.example.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-@Entity
+@Entity(name = "FEED_TOPIC")
 public class FeedTopic {
 	@Id
 	@SequenceGenerator(name="seq", initialValue=1, allocationSize=100)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
     private Long id;
 	
-	@Column(name = "TOPIC_TITLE")
 	private String title;
 
-	@Column(name = "TOPIC_URL")
 	private String url;
 
-	@Column(name = "IS_DELETED")
 	private String IsDeleted;
 
 	public Long getId() {

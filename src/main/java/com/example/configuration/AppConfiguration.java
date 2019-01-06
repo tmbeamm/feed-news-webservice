@@ -1,5 +1,6 @@
 package com.example.configuration;
 
+import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -20,13 +21,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class AppConfiguration {
 
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource() throws NamingException {
 
 	  EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+//	  return (DataSource) new JndiTemplate().lookup(env.getProperty("jdbc.url"));
 	  return builder.setType(EmbeddedDatabaseType.HSQL).build();
 	}
 	@Bean
-	public EntityManagerFactory entityManagerFactory() {
+	public EntityManagerFactory entityManagerFactory() throws NamingException {
 
 	   HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 	   vendorAdapter.setGenerateDdl(true);
@@ -41,7 +43,7 @@ public class AppConfiguration {
 	}
 	
 	@Bean
-	public PlatformTransactionManager transactionManager() {
+	public PlatformTransactionManager transactionManager() throws NamingException {
 
 	   JpaTransactionManager txManager = new JpaTransactionManager();
 	   txManager.setEntityManagerFactory(entityManagerFactory());
